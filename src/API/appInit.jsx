@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-export default async () => {
-    const {accessToken} = localStorage.getItem('accessToken');
+export default async ({accessToken}) => {
     console.log(accessToken)
     if(!accessToken) return null;
     try {

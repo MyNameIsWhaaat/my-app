@@ -7,8 +7,6 @@ import sber from '../assets/sber_ru_green.png';
 const Auth = () => {
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
-    const accessToken = localStorage.getItem('accessToken');
-    //if(accessToken) window.location.href = "/dashboard";
 
     const handleInputChange = (e) => {
         setFormData({
@@ -30,15 +28,18 @@ const Auth = () => {
         let result = await login(formData);
         if(result?.code==200){
             const {accessToken} = result.data;
+            console.log(accessToken)
             localStorage.setItem('accessToken', accessToken);
-            result = await appInit();
+            result = await appInit(accessToken);
             console.log(result)
             setLoading(false);
-            if(result?.code==200) localStorage.setItem('userInfo', JSON.stringify(result.data));
-            else if(result.message && result.code) notification(result);
+            //if(result?.code==200) localStorage.setItem('userInfo', JSON.stringify(result.data));
+            //else if(result.message && result.code) notification(result);
             //window.location.href = "/dashboard";
         } else if(result.message && result.code) notification(result);
     }, [formData]);
+    const accessToken = localStorage.getItem('accessToken');
+    //if(accessToken) window.location.href = "/dashboard";
 
     return (
         <div className="auth-container">
