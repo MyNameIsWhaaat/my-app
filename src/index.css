@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.auth-container {
+  text-align: center; /* Центрирование содержимого */
+}
+
+.logo-container {
+  margin-bottom: 20px; /* Отступ снизу для логотипа */
+}
+
+.auth-card {
+  display: inline-block; /* Для центрирования карточки */
+  margin: 0 auto; /* Автоматические отступы справа и слева */
+  padding: 20px; /* Отступы внутри карточки */
+}

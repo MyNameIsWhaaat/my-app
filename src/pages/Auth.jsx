@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Button, TextField, Card, CardBody, CardContent } from '@salutejs/plasma-web';
 import login from '../API/login.jsx';
+import sber from '../assets/sber.svg';
 
 const Auth = () => {
     const [formData, setFormData] = useState({});
@@ -15,24 +17,33 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const user = await login(formData);
-        console.log(user)
+        if (user) {
+            setUserFound(true);
+            // Обработка успешного входа
+        } else {
+            setUserFound(false);
+            // Обработка ошибки входа
+        }
     };
 
     return (
-        <div>
-            <h1>Вход</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Email:
-                    <input type="email" name="email" onChange={handleInputChange} required />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" onChange={handleInputChange} required />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-            {userFound && <p>Пользователь найден в базе данных!</p>}
+        <div className="auth-container">
+            <div className="logo-container">
+                <img src={sber} alt="Логотип СберБанка"/>
+            </div>
+            <Card className="auth-card">
+                <CardBody>
+                    <CardContent>
+                        <h1>Вход в СберМотивацию</h1>
+                        <form onSubmit={handleSubmit}>
+                            <TextField label="Email" type="email" name="email" onChange={handleInputChange} required />
+                            <TextField label="Password" type="password" name="password" onChange={handleInputChange} required />
+                            <Button text="Войти" view="primary" type="submit" />
+                        </form>
+                        {userFound && <p>Пользователь найден в базе данных!</p>}
+                    </CardContent>
+                </CardBody>
+            </Card>
         </div>
     );
 };
