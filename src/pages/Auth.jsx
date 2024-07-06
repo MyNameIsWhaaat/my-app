@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Button, TextField, Card, CardBody, CardContent, CardMedia, addNotification } from '@salutejs/plasma-web';
 import login from '../API/login.jsx';
+import appInit from '../API/appInit.jsx';
 import sber from '../assets/sber_ru_green.png';
 
 const Auth = () => {
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
+    const accessToken = localStorage.getItem('accessToken');
+    //if(accessToken) window.location.href = "/dashboard";
 
     const handleInputChange = (e) => {
         setFormData({
@@ -16,20 +19,26 @@ const Auth = () => {
 
     const handleSubmit = React.useCallback(async (e) => {
         e.preventDefault();
-        setLoading(true);
-        const result = await login(formData)
-        setLoading(false);
-        if(result?.code==200){
-            localStorage.setItem('accessToken', result.accessToken);
-            
-        } else {
+        function notification(res){
             addNotification({
-                title: result.message,
-                children: "Код ошибки: " + result.code,
+                title: res.message,
+                children: "Код ошибки: " + res.code,
                 showCloseIcon: false
-            }, 1000);
+            }, 2000);
         }
-    }, []);
+        setLoading(true);
+        let result = await login(formData);
+        if(result?.code==200){
+            const {accessToken} = result.data;
+            localStorage.setItem('accessToken', accessToken);
+            result = await appInit();
+            console.log(result)
+            setLoading(false);
+            if(result?.code==200) localStorage.setItem('userInfo', JSON.stringify(result.data));
+            else if(result.message && result.code) notification(result);
+            //window.location.href = "/dashboard";
+        } else if(result.message && result.code) notification(result);
+    }, [formData]);
 
     return (
         <div className="auth-container">

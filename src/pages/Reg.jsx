@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { Button, TextField, Card, CardBody, CardContent, CardMedia, addNotification } from '@salutejs/plasma-web';
+import register from '../API/register.jsx';
+import sber from '../assets/sber_ru_green.png';
 
 const Reg = () => {
     const [formData, setFormData] = useState({});
-    const [userFound, setUserFound] = useState(false); // добавляем состояние userFound
+    const [loading, setLoading] = useState(false);
+    const accessToken = localStorage.getItem('accessToken');
+    if(accessToken) window.location.href = "/dashboard";
 
     const handleInputChange = (e) => {
         setFormData({
@@ -11,57 +16,46 @@ const Reg = () => {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = React.useCallback(async (e) => {
+        console.log(formData)
         e.preventDefault();
-        try {
-            const url = `https://apimet.1lop.ru/register?firstname=${formData.firstName}&lastname=${formData.lastName}&email=${formData.email}&password=${formData.password}`;
-    
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-    
-            if (!response.ok) {
-                throw new Error('Ошибка HTTP: ' + response.status);
-            }
-    
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await response.json();
-                setUserFound(true);
-            } else {
-                throw new Error('Неверный формат данных');
-            }
-        } catch (error) {
-            console.error('Ошибка проверки пользователя:', error);
+        setLoading(true);
+        const result = await register(formData);
+        setLoading(false);
+        if(result?.code==200){
+            localStorage.setItem('accessToken', result.accessToken);
+            
+        } else {
+            addNotification({
+                title: result.message,
+                children: "Код ошибки: " + result.code,
+                showCloseIcon: false
+            }, 1000);
         }
-    };
+    }, []);
 
     return (
-        <div>
-            <h1>Вход</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    FirstName:
-                    <input type="text" name="firstName" onChange={handleInputChange} required />
-                </label>
-                <label>
-                    LastName:
-                    <input type="text" name="lastName" onChange={handleInputChange} required />
-                </label>
-                <label>
-                    Email:
-                    <input type="email" name="email" onChange={handleInputChange} required />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" onChange={handleInputChange} required />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-            {userFound && <p>Пользователь добавлен в базу!</p>}
+        <div className="auth-container">
+            <div className="logo-container" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
+                <img src={sber} alt="Логотип СберБанка"/>
+            </div>
+            <Card className="auth-card" background="white">
+                <CardBody>
+                    <CardContent coverGradient>
+                        <h1 style={{textAlign: "left"}}>Регистрация в СберМотивация</h1>
+                        <form onSubmit={handleSubmit}>
+                            <div style={{ display: 'flex', width: '100%' }}>
+                                <TextField type="text" name="firstname" onChange={handleInputChange} required placeholder={"Введите ваше имя"} style={{marginBottom: 20, flexGrow: 1, marginRight: '8px'}}/>
+                                <TextField type="text" name="lastname" onChange={handleInputChange} required placeholder={"Введите вашу фамилию"} style={{marginBottom: 20, flexGrow: 1}}/>
+                            </div>
+                            <TextField type="email" name="email" onChange={handleInputChange} required placeholder={"Введите почту"} style={{marginBottom: 20}}/>
+                            <TextField type="password" name="password" onChange={handleInputChange} required placeholder={"Пароль"} style={{marginBottom: 20}}/>
+                            <Button text="Зарегистрироваться" type="submit" stretching="filled" view="success" outlined style={{marginBottom: 20}} isLoading={loading}/>
+                            <Button view="white" text="Войти (уже есть аккаунт)" stretch="horizontal" onClick={() => window.location.href = "/auth"} outlined/>
+                        </form>
+                    </CardContent>
+                </CardBody>
+            </Card>
         </div>
     );
 };
