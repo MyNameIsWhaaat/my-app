@@ -5,7 +5,7 @@ import sber from '../assets/sber_ru_green.png';
 
 const Auth = () => {
     const [formData, setFormData] = useState({});
-    const [userFound, setUserFound] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleInputChange = (e) => {
         setFormData({
@@ -16,8 +16,9 @@ const Auth = () => {
 
     const handleSubmit = React.useCallback(async (e) => {
         e.preventDefault();
-        const result = await login(formData);
-        console.log(result);
+        setLoading(true);
+        const result = await login(formData)
+        setLoading(false);
         if(result?.code==200){
             localStorage.setItem('accessToken', result.accessToken);
             
@@ -42,7 +43,7 @@ const Auth = () => {
                         <form onSubmit={handleSubmit}>
                             <TextField type="email" name="email" onChange={handleInputChange} required placeholder={"Введите почту"} style={{marginBottom: 20}}/>
                             <TextField type="password" name="password" onChange={handleInputChange} required placeholder={"Пароль"} style={{marginBottom: 20}}/>
-                            <Button text="Войти" type="submit" stretching="filled" view="success" outlined style={{marginBottom: 20}}/>
+                            <Button text="Войти" type="submit" stretching="filled" view="success" outlined style={{marginBottom: 20}} isLoading={loading}/>
                             <Button view="white" text="Регистрация" stretch="horizontal" onClick={() => window.location.href = "/reg"} outlined/>
                         </form>
                     </CardContent>
