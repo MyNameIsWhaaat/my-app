@@ -30,16 +30,15 @@ const Auth = () => {
             const {accessToken} = result.data;
             console.log(accessToken)
             localStorage.setItem('accessToken', accessToken);
-            result = await appInit(accessToken);
-            console.log(result)
+            const res = await appInit(accessToken);
             setLoading(false);
-            //if(result?.code==200) localStorage.setItem('userInfo', JSON.stringify(result.data));
-            //else if(result.message && result.code) notification(result);
-            //window.location.href = "/dashboard";
+            if(res?.code==200) localStorage.setItem('userInfo', JSON.stringify(res.data));
+            else if(res.message && res.code) notification(res);
+            window.location.href = "/dashboard";
         } else if(result.message && result.code) notification(result);
     }, [formData]);
     const accessToken = localStorage.getItem('accessToken');
-    //if(accessToken) window.location.href = "/dashboard";
+    if(accessToken) window.location.href = "/dashboard";
 
     return (
         <div className="auth-container">
