@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, TextField, Card, CardBody, CardContent } from '@salutejs/plasma-web';
+import { Button, TextField, Card, CardBody, CardContent, CardMedia } from '@salutejs/plasma-web';
 import login from '../API/login.jsx';
-import sber from '../assets/sber.svg';
+import sber from '../assets/sber_ru_green.png';
 
 const Auth = () => {
     const [formData, setFormData] = useState({});
@@ -34,7 +34,7 @@ const Auth = () => {
             <Card className="auth-card">
                 <CardBody>
                     <CardContent>
-                        <h1>Вход в СберМотивацию</h1>
+                        <h1>Вход в СберМотивация</h1>
                         <form onSubmit={handleSubmit}>
                             <TextField label="Email" type="email" name="email" onChange={handleInputChange} required />
                             <TextField label="Password" type="password" name="password" onChange={handleInputChange} required />
