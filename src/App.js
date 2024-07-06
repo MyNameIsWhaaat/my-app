@@ -7,7 +7,6 @@ import Reg from './pages/Reg';
 import DashBoard from './pages/DashBoard';
 
 
-
 function App() {
   return (
     <NotificationsProvider>
