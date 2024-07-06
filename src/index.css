@@ -1,8 +1,16 @@
+@font-face {
+  font-family: 'San Francisco Text Semibold';
+  src: url('./assets/SFUIText-Semibold.eot');
+  src: url('./assets/SFUIText-Semibold.eot?#iefix') format('embedded-opentype'),
+  url('./assets/SFUIText-Semibold.woff') format('woff'),
+  url('./assets/SFUIText-Semibold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'San Francisco Text Semibold';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -18,11 +26,19 @@ code {
 }
 
 .logo-container {
-  margin-bottom: 20px; /* Отступ снизу для логотипа */
+  margin: 20px; /* Отступ снизу для логотипа */
 }
 
 .auth-card {
   display: inline-block; /* Для центрирования карточки */
   margin: 0 auto; /* Автоматические отступы справа и слева */
   padding: 20px; /* Отступы внутри карточки */
+  margin: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.logo-container img {
+  max-width: 300px; /* Установите максимальную ширину логотипа */
+  height: auto; /* Высота изменится пропорционально, чтобы сохранить соотношение сторон */
 }

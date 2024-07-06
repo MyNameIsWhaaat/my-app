@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Button, TextField, Card, CardBody, CardContent } from '@salutejs/plasma-web';
+import { Button, TextField, Card, CardBody, CardContent, CardMedia, addNotification } from '@salutejs/plasma-web';
 import login from '../API/login.jsx';
-import sber from '../assets/sber.svg';
+import sber from '../assets/sber_ru_green.png';
 
 const Auth = () => {
     const [formData, setFormData] = useState({});
-    const [userFound, setUserFound] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleInputChange = (e) => {
         setFormData({
@@ -14,33 +14,38 @@ const Auth = () => {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = React.useCallback(async (e) => {
         e.preventDefault();
-        const user = await login(formData);
-        if (user) {
-            setUserFound(true);
-            // Обработка успешного входа
+        setLoading(true);
+        const result = await login(formData)
+        setLoading(false);
+        if(result?.code==200){
+            localStorage.setItem('accessToken', result.accessToken);
+            
         } else {
-            setUserFound(false);
-            // Обработка ошибки входа
+            addNotification({
+                title: result.message,
+                children: "Код ошибки: " + result.code,
+                showCloseIcon: false
+            }, 1000);
         }
-    };
+    }, []);
 
     return (
         <div className="auth-container">
-            <div className="logo-container">
+            <div className="logo-container" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
                 <img src={sber} alt="Логотип СберБанка"/>
             </div>
-            <Card className="auth-card">
+            <Card className="auth-card" background="white">
                 <CardBody>
-                    <CardContent>
-                        <h1>Вход в СберМотивацию</h1>
+                    <CardContent coverGradient>
+                        <h1 style={{textAlign: "left"}}>Вход в СберМотивация</h1>
                         <form onSubmit={handleSubmit}>
-                            <TextField label="Email" type="email" name="email" onChange={handleInputChange} required />
-                            <TextField label="Password" type="password" name="password" onChange={handleInputChange} required />
-                            <Button text="Войти" view="primary" type="submit" />
+                            <TextField type="email" name="email" onChange={handleInputChange} required placeholder={"Введите почту"} style={{marginBottom: 20}}/>
+                            <TextField type="password" name="password" onChange={handleInputChange} required placeholder={"Пароль"} style={{marginBottom: 20}}/>
+                            <Button text="Войти" type="submit" stretching="filled" view="success" outlined style={{marginBottom: 20}} isLoading={loading}/>
+                            <Button view="white" text="Регистрация" stretch="horizontal" onClick={() => window.location.href = "/reg"} outlined/>
                         </form>
-                        {userFound && <p>Пользователь найден в базе данных!</p>}
                     </CardContent>
                 </CardBody>
             </Card>

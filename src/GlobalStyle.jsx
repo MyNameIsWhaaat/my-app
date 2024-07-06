@@ -7,11 +7,11 @@ import {
     gradient, // Градиент
 } from '@salutejs/plasma-tokens-web';
 
+console.log(background)
 const DocumentStyle = createGlobalStyle`
     html {
         color: ${text};
-        background-color: ${background};
-        background-image: ${gradient};
+        background-color: var(--plasma-colors-background, #f1f5f7);
     }
 `;
 const ThemeStyle = createGlobalStyle(light);
@@ -19,6 +19,7 @@ const TypoStyle = createGlobalStyle(standard);
 
 export const GlobalStyle = () => (
     <>
+        <DocumentStyle/>
         <ThemeStyle />
         <TypoStyle />
     </>
