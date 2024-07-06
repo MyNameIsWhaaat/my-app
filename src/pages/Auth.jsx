@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { Button, TextField, Card, CardBody, CardContent } from '@salutejs/plasma-web';
+import login from '../API/login.jsx';
+import sber from '../assets/sber.svg';
 
 const Auth = () => {
     const [formData, setFormData] = useState({});
-    const [userFound, setUserFound] = useState(false); // добавляем состояние userFound
+    const [userFound, setUserFound] = useState(false);
 
     const handleInputChange = (e) => {
         setFormData({
@@ -13,47 +16,34 @@ const Auth = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const url = `https://apimet.1lop.ru/login?email=${formData.email}&password=${formData.password}`;
-    
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-    
-            if (!response.ok) {
-                throw new Error('Ошибка HTTP: ' + response.status);
-            }
-    
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await response.json();
-                setUserFound(true);
-            } else {
-                throw new Error('Неверный формат данных');
-            }
-        } catch (error) {
-            console.error('Ошибка проверки пользователя:', error);
+        const user = await login(formData);
+        if (user) {
+            setUserFound(true);
+            // Обработка успешного входа
+        } else {
+            setUserFound(false);
+            // Обработка ошибки входа
         }
     };
 
     return (
-        <div>
-            <h1>Вход</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Email:
-                    <input type="email" name="email" onChange={handleInputChange} required />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" name="password" onChange={handleInputChange} required />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-            {userFound && <p>Пользователь найден в базе данных!</p>}
+        <div className="auth-container">
+            <div className="logo-container">
+                <img src={sber} alt="Логотип СберБанка"/>
+            </div>
+            <Card className="auth-card">
+                <CardBody>
+                    <CardContent>
+                        <h1>Вход в СберМотивацию</h1>
+                        <form onSubmit={handleSubmit}>
+                            <TextField label="Email" type="email" name="email" onChange={handleInputChange} required />
+                            <TextField label="Password" type="password" name="password" onChange={handleInputChange} required />
+                            <Button text="Войти" view="primary" type="submit" />
+                        </form>
+                        {userFound && <p>Пользователь найден в базе данных!</p>}
+                    </CardContent>
+                </CardBody>
+            </Card>
         </div>
     );
 };
