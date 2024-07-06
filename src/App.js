@@ -5,7 +5,6 @@ import Welcome from './pages/Welcome';
 import Reg from './pages/Reg';
 
 
-
 function App() {
   return (
       <BrowserRouter>
