@@ -2687,6 +2687,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@salutejs/plasma-tokens@npm:^1.81.0":
+  version: 1.81.0
+  resolution: "@salutejs/plasma-tokens@npm:1.81.0"
+  peerDependencies:
+    styled-components: ^5.1.1
+  checksum: 10c0/dbc7d113ac23fc7cc13114ea2c52ecabf98b52bb25c54efa843c969b5cf17e1ff469f6ff37a54215eefcc1584d6b40716a63e297007959220f2fd962d91c3ab1
+  languageName: node
+  linkType: hard
+
 "@salutejs/plasma-typo@npm:0.40.0, @salutejs/plasma-typo@npm:^0.40.0":
   version: 0.40.0
   resolution: "@salutejs/plasma-typo@npm:0.40.0"
@@ -2695,6 +2704,25 @@ __metadata:
     react-dom: ">=16.13.1"
     styled-components: ^5.1.1
   checksum: 10c0/821837687230c1588e831363f838579ffc40685beaa3691259a5044dea17c6ef6c9477754c76dd8f91c9f2d43f7282daba4407fb2c9c622da8306a53cb5c0da1
+  languageName: node
+  linkType: hard
+
+"@salutejs/plasma-ui@npm:^1.255.0":
+  version: 1.255.0
+  resolution: "@salutejs/plasma-ui@npm:1.255.0"
+  dependencies:
+    "@salutejs/plasma-core": "npm:1.160.0"
+    "@salutejs/plasma-typo": "npm:0.40.0"
+    color: "npm:3.1.2"
+    lodash.throttle: "npm:4.1.1"
+    react-draggable: "npm:4.4.3"
+  peerDependencies:
+    "@salutejs/plasma-icons": ^1.0.0
+    "@salutejs/plasma-tokens": ^1.0.0
+    react: ">=16.13.1"
+    react-dom: ">=16.13.1"
+    styled-components: ^5.1.1
+  checksum: 10c0/52efebb8079f0e74e770d1393cf41876220564d1b01528ef38751362d5e17a943c12285a66945139279d3e01fde0d3a30e8de4b526dc97f916d92d56f46d57f7
   languageName: node
   linkType: hard
 
@@ -4797,7 +4825,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-convert@npm:^1.9.0":
+"color-convert@npm:^1.9.0, color-convert@npm:^1.9.1":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
   dependencies:
@@ -4822,10 +4850,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-name@npm:~1.1.4":
+"color-name@npm:^1.0.0, color-name@npm:~1.1.4":
   version: 1.1.4
   resolution: "color-name@npm:1.1.4"
   checksum: 10c0/a1a3f914156960902f46f7f56bc62effc6c94e84b2cae157a526b1c1f74b677a47ec602bf68a61abfa2b42d15b7c5651c6dbe72a43af720bc588dff885b10f95
+  languageName: node
+  linkType: hard
+
+"color-string@npm:^1.5.2":
+  version: 1.9.1
+  resolution: "color-string@npm:1.9.1"
+  dependencies:
+    color-name: "npm:^1.0.0"
+    simple-swizzle: "npm:^0.2.2"
+  checksum: 10c0/b0bfd74c03b1f837f543898b512f5ea353f71630ccdd0d66f83028d1f0924a7d4272deb278b9aef376cacf1289b522ac3fb175e99895283645a2dc3a33af2404
+  languageName: node
+  linkType: hard
+
+"color@npm:3.1.2":
+  version: 3.1.2
+  resolution: "color@npm:3.1.2"
+  dependencies:
+    color-convert: "npm:^1.9.1"
+    color-string: "npm:^1.5.2"
+  checksum: 10c0/38072674b8ed4b98d61be6087763bd01931753a5043ab5a5cf0d0bcb0b7b8211e4f14ae65aef42ba368de7382b3185f9e15557022814a58ec0f47b6be433e45f
   languageName: node
   linkType: hard
 
@@ -7705,6 +7753,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-arrayish@npm:^0.3.1":
+  version: 0.3.2
+  resolution: "is-arrayish@npm:0.3.2"
+  checksum: 10c0/f59b43dc1d129edb6f0e282595e56477f98c40278a2acdc8b0a5c57097c9eff8fe55470493df5775478cf32a4dc8eaf6d3a749f07ceee5bc263a78b2434f6a54
+  languageName: node
+  linkType: hard
+
 "is-async-function@npm:^2.0.0":
   version: 2.0.0
   resolution: "is-async-function@npm:2.0.0"
@@ -9578,8 +9633,10 @@ __metadata:
   resolution: "my-app@workspace:."
   dependencies:
     "@salutejs/plasma-icons": "npm:^1.198.0"
+    "@salutejs/plasma-tokens": "npm:^1.81.0"
     "@salutejs/plasma-tokens-web": "npm:^1.55.0"
     "@salutejs/plasma-typo": "npm:^0.40.0"
+    "@salutejs/plasma-ui": "npm:^1.255.0"
     "@salutejs/plasma-web": "npm:^1.339.0"
     "@userfront/toolkit": "npm:^1.0.9"
     axios: "npm:^1.7.2"
@@ -12269,6 +12326,15 @@ __metadata:
   version: 4.1.0
   resolution: "signal-exit@npm:4.1.0"
   checksum: 10c0/41602dce540e46d599edba9d9860193398d135f7ff72cab629db5171516cfae628d21e7bfccde1bbfdf11c48726bc2a6d1a8fb8701125852fbfda7cf19c6aa83
+  languageName: node
+  linkType: hard
+
+"simple-swizzle@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "simple-swizzle@npm:0.2.2"
+  dependencies:
+    is-arrayish: "npm:^0.3.1"
+  checksum: 10c0/df5e4662a8c750bdba69af4e8263c5d96fe4cd0f9fe4bdfa3cbdeb45d2e869dff640beaaeb1ef0e99db4d8d2ec92f85508c269f50c972174851bc1ae5bd64308
   languageName: node
   linkType: hard
 
