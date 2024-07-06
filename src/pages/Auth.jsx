@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import login from '../API/login.jsx';
 
 const Auth = () => {
     const [formData, setFormData] = useState({});
-    const [userFound, setUserFound] = useState(false); // добавляем состояние userFound
+    const [userFound, setUserFound] = useState(false);
 
     const handleInputChange = (e) => {
         setFormData({
@@ -13,30 +14,8 @@ const Auth = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const url = `https://apimet.1lop.ru/login?email=${formData.email}&password=${formData.password}`;
-    
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-    
-            if (!response.ok) {
-                throw new Error('Ошибка HTTP: ' + response.status);
-            }
-    
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                const data = await response.json();
-                setUserFound(true);
-            } else {
-                throw new Error('Неверный формат данных');
-            }
-        } catch (error) {
-            console.error('Ошибка проверки пользователя:', error);
-        }
+        const user = await login(formData);
+        console.log(user)
     };
 
     return (
