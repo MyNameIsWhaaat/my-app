@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Modal, Button, Headline1, Headline3, TextField, Spinner, addNotification, TextArea } from '@salutejs/plasma-web';
 import generateDescription from '../API/generateDescription';
-import uploadImage from '../API/uploadImage';
 
 const StyledButton = styled(Button)`
     background-color: #f1f5f7;

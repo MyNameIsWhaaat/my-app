@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getBalance = async (event) => {
+const getBalance = async () => {
     const accessToken = localStorage.getItem('accessToken');
     if(!accessToken) return null;
     try {

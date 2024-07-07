@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NotificationsProvider } from '@salutejs/plasma-web';
 import './App.css';

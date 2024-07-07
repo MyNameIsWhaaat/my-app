@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const appInit = async (event) => {
+const appInit = async () => {
     const accessToken = localStorage.getItem('accessToken');
     if(!accessToken) return null;
     try {

@@ -1,3 +1,4 @@
+import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { standard } from '@salutejs/plasma-typo';
 import { light } from '@salutejs/plasma-tokens-web/themes';

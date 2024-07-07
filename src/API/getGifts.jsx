@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getGifts = async (event) => {
+const getGifts = async () => {
     const accessToken = localStorage.getItem('accessToken');
     if(!accessToken) return null;
     try {
