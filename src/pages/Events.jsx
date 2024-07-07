@@ -208,7 +208,7 @@ const Events = () => {
                                         ) : (
                                             <StyledButton text="Регистрация" onClick={() => handleRegister(event._id)} />
                                         )}
-                                        <StyledButton text="Подробнее" onClick={() => openModal(event)} />
+                                        <StyledButton text="Подробнее" onClick={() => openModal(event)}/>
                                     </ButtonGroup>
                                 }
                                 title={`${event.title}`}
