@@ -60,32 +60,40 @@ const Events = () => {
     const handleRegister = async (id) => {
         setLoadingReg(true);
         const res = await createTicket(id);
-        if(res?.code==200){
-            setLoadingReg(false);
-            setEvents(events.map((event) =>
-                event._id === id ? { ...event, registered: true } : event
+        if (res?.code === 200) {
+            setEvents(prevEvents => (
+                prevEvents.map(event =>
+                    event.id === id ? { ...event, registered: true } : event
+                )
             ));
-        } else addNotification({
-            title: res.message,
-            children: "Код ошибки: " + res.code,
-            showCloseIcon: false
-        }, 2000);
+            setLoadingReg(false);
+        } else {
+            addNotification({
+                title: res.message,
+                children: "Код ошибки: " + res.code,
+                showCloseIcon: false
+            }, 2000);
+        }
     };
-
+    
     const handleUnregister = async (id) => {
         setLoadingReg(true);
         const res = await deleteTicket(id);
-        if(res?.code==200){
-            setLoadingReg(false);
-            setEvents(events.map((event) =>
-                event._id === id ? { ...event, registered: false } : event
+        if (res?.code === 200) {
+            setEvents(prevEvents => (
+                prevEvents.map(event =>
+                    event.id === id ? { ...event, registered: false } : event
+                )
             ));
-        } else addNotification({
-            title: res.message,
-            children: "Код ошибки: " + res.code,
-            showCloseIcon: false
-        }, 2000);
-    };
+            setLoadingReg(false);
+        } else {
+            addNotification({
+                title: res.message,
+                children: "Код ошибки: " + res.code,
+                showCloseIcon: false
+            }, 2000);
+        }
+    };    
 
     const openModal = (event) => {
         setSelectedEvent(event);
