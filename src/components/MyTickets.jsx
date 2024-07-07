@@ -7,7 +7,7 @@ import {
     Card,
     CardContent,
 } from '@salutejs/plasma-web';
-import getEvents from '../API/getEvents.jsx';
+import getEvents from '../API/getTickets.jsx';
 import styled from 'styled-components';
 import formatDateTime from '../func/formatDateTime.jsx';
 import MoreEventModal from './MoreEventModal.jsx';
@@ -115,7 +115,8 @@ const MyTickets = () => {
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
         maxWidth: '800px',
         width: '100%',
-        marginBottom:'30px',
+        marginBottom: '30px',
+        marginTop: '20px',
     };
 
     const cardStyle2 = {
@@ -138,54 +139,45 @@ const MyTickets = () => {
     };
 
     return (
-        <div>
-            
-            <div style={{ display: 'flex', justifyContent: 'center'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', minHeight: '100vh' }}>
+            <div style={{ width: '100%', maxWidth: '800px', padding: '20px' }}>
                 <Card style={cardStyle}>
-                <div
+                    <div
                         style={{
                             display: 'flex',
-                            justifyContent: 'space-between',
+                            justifyContent: 'center',
                             alignItems: 'center',
                             marginBottom: '20px',
                         }}
                     >
-                        <h2>
-                            Мои билеты
-                        </h2>
+                        <h2>Мои билеты</h2>
                         {isAdmin && <StyledButton text="Добавить событие" size="s" onClick={addEvent} />}
                     </div>
-                
-                    {events
-
-                        .filter((event) => new Date(event.firstDate).toDateString() === value.toDateString())
-                        .map((event, i) => (
-                            <Card style={cardStyle}>
-                            <Cell
-                                key={i}
-                                size="l"
-                                contentRight={
-                                    <ButtonGroup size="xs" shape="segmented">
-                                        {event.registered ? (
-                                            <StyledButton
-                                                text="Отказаться"
-                                                onClick={() => handleUnregister(event._id)}
-                                            />
-                                        ) : (
-                                            <StyledButton text="Регистрация" onClick={() => handleRegister(event._id)} />
-                                        )}
-                                        <StyledButton text="Подробнее" onClick={() => openModal(event)} />
-                                    </ButtonGroup>
-                                }
-                                title={`${event.title}`}
-                                subtitle={`${formatDateTime(event.firstDate, event.secondDate)} | ${truncateDescription(event.description,45)}`}
-                                style={{ marginBottom: '30px' }}
-                            />
-                            </Card>
-                        ))}
-
-
                 </Card>
+
+                {events.map((ticket, i) => (
+                    <Card style={cardStyle} key={i}>
+                        <Cell
+                            size="l"
+                            contentRight={
+                                <ButtonGroup size="xs" shape="segmented">
+                                    {ticket.event.registered ? (
+                                        <StyledButton
+                                            text="Отказаться"
+                                            onClick={() => handleUnregister(ticket.event._id)}
+                                        />
+                                    ) : (
+                                        <StyledButton text="Регистрация" onClick={() => handleRegister(ticket.event._id)} />
+                                    )}
+                                    <StyledButton text="Подробнее" onClick={() => openModal(ticket.event)} />
+                                </ButtonGroup>
+                            }
+                            title={`${ticket.event.title}`}
+                            subtitle={`${formatDateTime(ticket.event.firstDate, ticket.event.secondDate)} | ${truncateDescription(ticket.event.description, 45)}`}
+                            style={{ marginBottom: '30px' }}
+                        />
+                    </Card>
+                ))}
             </div>
         </div>
     );
