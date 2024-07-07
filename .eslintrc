@@ -1,9 +1,20 @@
 {
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:jsx-a11y/recommended"
+    ],
+    "plugins": [
+      "react",
+      "jsx-a11y"
+    ],
     "rules": {
-        "import/no-anonymous-default-export": "off",
-        "no-unused-vars": "warn",
-        "eqeqeq": "warn",
-        "jsx-a11y/alt-text": "warn"
+      "jsx-a11y/alt-text": "warn"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
     }
-}
+  }
   

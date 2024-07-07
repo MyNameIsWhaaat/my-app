@@ -6278,7 +6278,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsx-a11y@npm:^6.5.1":
+"eslint-plugin-jsx-a11y@npm:^6.5.1, eslint-plugin-jsx-a11y@npm:^6.9.0":
   version: 6.9.0
   resolution: "eslint-plugin-jsx-a11y@npm:6.9.0"
   dependencies:
@@ -9618,6 +9618,7 @@ __metadata:
     "@userfront/toolkit": "npm:^1.0.9"
     axios: "npm:^1.7.2"
     cra-template: "npm:1.2.0"
+    eslint-plugin-jsx-a11y: "npm:^6.9.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-is: "npm:^18.3.1"
