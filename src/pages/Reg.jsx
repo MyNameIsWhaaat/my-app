@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Button, TextField, Card, CardBody, CardContent, CardMedia, addNotification } from '@salutejs/plasma-web';
 import register from '../API/register.jsx';
+import appInit from '../API/appInit.jsx';
 import sber from '../assets/sber_ru_green.png';
 
 const Reg = () => {
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
-    const accessToken = localStorage.getItem('accessToken');
-    if(accessToken) window.location.href = "/dashboard";
 
     const handleInputChange = (e) => {
         setFormData({
@@ -17,22 +16,29 @@ const Reg = () => {
     };
 
     const handleSubmit = React.useCallback(async (e) => {
-        console.log(formData)
         e.preventDefault();
+        function notification(res){
+            addNotification({
+                title: res.message,
+                children: "Код ошибки: " + res.code,
+                showCloseIcon: false
+            }, 2000);
+        }
         setLoading(true);
         const result = await register(formData);
-        setLoading(false);
         if(result?.code==200){
-            localStorage.setItem('accessToken', result.accessToken);
-            
-        } else {
-            addNotification({
-                title: result.message,
-                children: "Код ошибки: " + result.code,
-                showCloseIcon: false
-            }, 1000);
-        }
-    }, []);
+            const {accessToken} = result.data;
+            console.log(accessToken)
+            localStorage.setItem('accessToken', accessToken);
+            const res = await appInit(accessToken);
+            setLoading(false);
+            if(res?.code==200) localStorage.setItem('userInfo', JSON.stringify(res.data));
+            else if(res.message && res.code) notification(res);
+            window.location.href = "/dashboard";
+        } else if(result.message && result.code) notification(result);
+    }, [formData]);
+    const accessToken = localStorage.getItem('accessToken');
+    if(accessToken) window.location.href = "/dashboard";
 
     return (
         <div className="auth-container">

@@ -1,9 +1,9 @@
-import {Button} from "@salutejs/plasma-web";
+import {Button, Toolbar} from "@salutejs/plasma-web";
 
 export default () => {
     const accessToken = localStorage.getItem('accessToken');
     if(!accessToken) window.location.href = "/";
     return (
-        123
+         <div></div>
     );
 };
