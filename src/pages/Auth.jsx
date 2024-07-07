@@ -37,9 +37,6 @@ const Auth = () => {
             window.location.href = "/dashboard";
         } else if(result.message && result.code) notification(result);
     }, [formData]);
-    const accessToken = localStorage.getItem('accessToken');
-    if(accessToken) window.location.href = "/dashboard";
-
     return (
         <div className="auth-container">
             <div className="logo-container" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>
