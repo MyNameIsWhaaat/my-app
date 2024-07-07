@@ -130,7 +130,7 @@ const MoreEventModal = ({ isOpen, onClose, event, isAdmin }) => {
         }
     };
     return (
-        <Modal isOpen={isOpen} onClose={onClose} withBlur style={{ width: '100%', maxWidth: '800px' }}>
+        <Modal isOpen={isOpen} onClose={onClose} withBlur style={{ width: '100%', maxWidth: '800px', paddingRight: '40px' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '20px' }}>
                 <div style={{ marginRight: '20px' }}>
                     {((event.image && !editedEvent?.image) || (editedEvent?.image && editedEvent?.image !== true) || !isAdmin) && (event.image || editedEvent?.image) ? (
@@ -216,7 +216,7 @@ const MoreEventModal = ({ isOpen, onClose, event, isAdmin }) => {
                                 style={{width: '500px'}}
                             />
                         ) : (
-                            <Headline3>{editedEvent?.description || event.description}</Headline3>
+                            <Headline3 style={{ wordBreak: 'break-word' }}>{editedEvent?.description || event.description}</Headline3>
                         )
                     }
                     {editing ? (

@@ -174,8 +174,8 @@ const Events = () => {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center'}}>
-                <Card style={cardStyle2}>
-                <div
+                {events?.filter((event) => new Date(event.firstDate).toDateString() === value.toDateString())?.length>0 && <Card style={cardStyle2}>
+                    <div
                         style={{
                             display: 'flex',
                             justifyContent: 'space-between',
@@ -191,7 +191,6 @@ const Events = () => {
                     </div>
                 
                     {events
-
                         .filter((event) => new Date(event.firstDate).toDateString() === value.toDateString())
                         .map((event, i) => (
                             <Card style={cardStyle3}>
@@ -217,9 +216,7 @@ const Events = () => {
                             />
                             </Card>
                         ))}
-
-
-                </Card>
+                </Card>}
             </div>
 
             {selectedEvent && (
