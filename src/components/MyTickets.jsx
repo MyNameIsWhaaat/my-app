@@ -7,10 +7,10 @@ import {
     Card,
     CardContent,
 } from '@salutejs/plasma-web';
-import getEvents from '../API/getEvents';
+import getEvents from '../API/getEvents.jsx';
 import styled from 'styled-components';
 import formatDateTime from '../func/formatDateTime.jsx';
-import MoreEventModal from '../components/MoreEventModal.jsx';
+import MoreEventModal from './MoreEventModal.jsx';
 
 const StyledButton = styled(Button)`
     background-color: #ffffff;
@@ -21,7 +21,7 @@ const StyledButton = styled(Button)`
     }
 `;
 
-const Events = () => {
+const MyTickets = () => {
     const [events, setEvents] = useState([]);
     const [value, setValue] = useState(new Date());
     const [modalOpen, setModalOpen] = useState(false);
@@ -127,16 +127,6 @@ const Events = () => {
         width: '100%',
     };
 
-    const cardStyle3 = { 
-        border:'3px solid rgba(0,255,0,0.8)',
-        padding: '20px',
-        borderRadius: '8px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-        maxWidth: '800px',
-        width: '100%',
-        marginBottom:'10px',
-    };
-
     const modalContentStyle = {
         width: '100%', // Расширяем контент модального окна на всю доступную ширину
         maxWidth: '800px', // Максимальная ширина контента модального окна
@@ -148,33 +138,10 @@ const Events = () => {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '20px', flexDirection:"column"}}>
+        <div>
+            
             <div style={{ display: 'flex', justifyContent: 'center'}}>
-            <Card style={cardStyle}>
-                <CardContent>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                        <Calendar
-                            isDouble
-                            value={value}
-                            eventList={events.map((event) => ({
-                                date: new Date(event.firstDate),
-                                color: event.registered
-                                    ? new Date(event.firstDate) < new Date()
-                                        ? 'green'
-                                        : 'purple'
-                                    : new Date(event.firstDate) < new Date()
-                                    ? 'gray'
-                                    : 'blue',
-                            }))}
-                            onChangeValue={handleOnChange}
-                        />
-                    </div>
-                </CardContent>
-            </Card>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'center'}}>
-                <Card style={cardStyle2}>
+                <Card style={cardStyle}>
                 <div
                         style={{
                             display: 'flex',
@@ -184,8 +151,7 @@ const Events = () => {
                         }}
                     >
                         <h2>
-                            События {('0' + value.getDate()).slice(-2)}.{('0' + (value.getMonth() + 1)).slice(-2)}.
-                            {value.getFullYear()}
+                            Мои билеты
                         </h2>
                         {isAdmin && <StyledButton text="Добавить событие" size="s" onClick={addEvent} />}
                     </div>
@@ -194,7 +160,7 @@ const Events = () => {
 
                         .filter((event) => new Date(event.firstDate).toDateString() === value.toDateString())
                         .map((event, i) => (
-                            <Card style={cardStyle3}>
+                            <Card style={cardStyle}>
                             <Cell
                                 key={i}
                                 size="l"
@@ -221,23 +187,8 @@ const Events = () => {
 
                 </Card>
             </div>
-
-            {selectedEvent && (
-                <MoreEventModal
-                    isOpen={modalOpen}
-                    onClose={closeModal}
-                    event={selectedEvent}
-                    isAdmin={isAdmin}
-                    onEdit={handleEdit}
-                    onSaveEdit={handleSaveEdit}
-                    onCancelEdit={handleCancelEdit}
-                    onDeleteImage={handleDeleteImage}
-                    onUploadImage={handleUploadImage}
-                    editedEvent={editedEvent}
-                />
-            )}
         </div>
     );
 };
 
-export default Events;
+export default MyTickets;

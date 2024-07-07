@@ -6,10 +6,11 @@ import sber from '../assets/sber_ru_green.png';
 export default () => {
     const { firstname, lastname, email, isAdmin } = JSON.parse(localStorage.getItem('userInfo'));
     const items = ['События', 'Мои билеты', 'Магазин', 'Сообщество'];
-    const [index, setIndex] = useState(0);
+    const [index, setIndex] = useState(Number(localStorage.getItem('tab')) || 0);
+    
     useEffect(() => {
-        localStorage.setItem('tab', '0');
-    });
+        localStorage.setItem('tab', index);
+    }, [index]);
     
     const activeTabStyle = {
         backgroundColor: '#f1f5f7'
@@ -35,8 +36,6 @@ export default () => {
                                 tabIndex={0}
                                 onClick={() => {
                                     setIndex(i);
-                                    localStorage.setItem('tab', i);
-                                    window.location.reload();
                                 }}
                                 style={i === index ? activeTabStyle : { margin: '0 8px' }}
                             >
