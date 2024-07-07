@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async ({email, password, firstname, lastname}) => {
+const register = async ({email, password, firstname, lastname}) => {
     try {
         const response = await axios.get(`https://apimet.1lop.ru/register?email=${email}&password=${password}&firstname=${firstname}&lastname=${lastname}`);
         return response.data.data;
@@ -10,3 +10,5 @@ export default async ({email, password, firstname, lastname}) => {
         else return null;
     }
 }
+
+export default register;

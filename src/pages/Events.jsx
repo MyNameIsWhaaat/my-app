@@ -226,7 +226,7 @@ const Events = () => {
                     event={selectedEvent}
                     isAdmin={isAdmin}
                     onEdit={handleEdit}
-                    onSaveEdit={handleSaveEdit}
+                    onSaveEdi={handleSaveEdit}
                     onCancelEdit={handleCancelEdit}
                     onDeleteImage={handleDeleteImage}
                     onUploadImage={handleUploadImage}

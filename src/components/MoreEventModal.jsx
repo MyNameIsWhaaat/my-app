@@ -15,6 +15,7 @@ import uploadImage from '../API/uploadImage';
 import changeEvent from '../API/changeEvent';
 import formatDateTime from '../func/formatDateTime';
 import GenerationModal from './GenerationModal';
+import GenerationDescriptionModal from './GenerationDescriptionModal';
 
 const StyledButton = styled(Button)`
     background-color: #f1f5f7;
@@ -76,12 +77,13 @@ const ImageUploader = ({ onChange, style }) => {
     );
 };
 
-const MoreEventModal = ({ isOpen, onClose, event, isAdmin }) => {
+const MoreEventModal = ({ isOpen, onClose, event, isAdmin, handleSaveEdi }) => {
     const [editing, setEditing] = useState(false);
     const [editedEvent, setEditedEvent] = useState(null);
     const [editedStartDate, setEditedStartDate] = useState(event.firstDate ? new Date(event.firstDate).toISOString().slice(0, -1) : ''); // Дата начала редактирования
     const [editedEndDate, setEditedEndDate] = useState(event.secondDate ? new Date(event.secondDate).toISOString().slice(0, -1) : ''); // Дата окончания редактирования
     const [genModalOpen, setGenModalOpen] = useState(false); // Состояние для модального окна генерации изображения
+    const [genDescriptionOpen, setGenDescriptionOpen] = useState(false); // Состояние для модального окна генерации описания
 
     const handleCancelEdit = () => {
         setEditing(false);
@@ -98,6 +100,7 @@ const MoreEventModal = ({ isOpen, onClose, event, isAdmin }) => {
         console.log(data);
         const res = await changeEvent(data);
         if (res?.code === 200) {
+            handleSaveEdi(data);
             setEditing(false);
             setEditedEvent(null);
             onClose();
@@ -205,16 +208,26 @@ const MoreEventModal = ({ isOpen, onClose, event, isAdmin }) => {
                     <Headline3>Описание:</Headline3>
                     {
                         isAdmin ? (
-                            <TextArea
-                                placeholder="Описание события"
-                                value={editedEvent?.description || event.description}
-                                onChange={(e) => {
-                                    setEditing(true);
-                                    setEditedEvent({ ...editedEvent, description: e.target.value });
-                                }}
-                                rows={4}
-                                style={{width: '500px'}}
-                            />
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <TextArea
+                                    placeholder="Описание события"
+                                    value={editedEvent?.description || event.description}
+                                    onChange={(e) => {
+                                        setEditing(true);
+                                        setEditedEvent({ ...editedEvent, description: e.target.value });
+                                    }}
+                                    rows={4}
+                                    style={{ width: '500px' }}
+                                />
+                                <StyledButton
+                                    size='xs'
+                                    style={{ marginTop: '10px' }}
+                                    stretching='filled'
+                                    onClick={() => setGenDescriptionOpen(true)}
+                                >
+                                    Сгенерировать описание
+                                </StyledButton>
+                            </div>
                         ) : (
                             <Headline3 style={{ wordBreak: 'break-word' }}>{editedEvent?.description || event.description}</Headline3>
                         )
@@ -222,7 +235,7 @@ const MoreEventModal = ({ isOpen, onClose, event, isAdmin }) => {
                     {editing ? (
                         <div style={{ marginBottom: '10px' }}>
                             <div style={{ marginTop: '10px' }}>
-                                <ButtonGroup size="xs" shape="segmented">
+                                <ButtonGroup size="xs" shape="segmented" stretching='filled'>
                                     <StyledButton text="Сохранить" onClick={handleSaveEdit} />
                                     <StyledButton text="Отмена" onClick={handleCancelEdit} />
                                 </ButtonGroup>
@@ -233,6 +246,14 @@ const MoreEventModal = ({ isOpen, onClose, event, isAdmin }) => {
                     <GenerationModal
                         isOpen={genModalOpen}
                         onClose={() => setGenModalOpen(false)}
+                        editedEvent={editedEvent}
+                        setEditedEvent={setEditedEvent}
+                        setEditing={setEditing}
+                    />}
+                    {genDescriptionOpen &&
+                    <GenerationDescriptionModal
+                        isOpen={genDescriptionOpen}
+                        onClose={() => setGenDescriptionOpen(false)}
                         editedEvent={editedEvent}
                         setEditedEvent={setEditedEvent}
                         setEditing={setEditing}

@@ -1,10 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 import { standard } from '@salutejs/plasma-typo';
-import { light, dark } from '@salutejs/plasma-tokens-web/themes';
+import { light } from '@salutejs/plasma-tokens-web/themes';
 import {
     text, // Цвет текста
     background, // Цвет подложки
-    gradient, // Градиент
 } from '@salutejs/plasma-tokens-web';
 
 console.log(background)

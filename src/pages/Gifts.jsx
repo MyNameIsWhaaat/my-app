@@ -17,7 +17,7 @@ const BalanceContainer = styled.div`
     text-align: center;
     margin-bottom: 30px;
     max-width: 800px;
-    width: 100%;
+    width: (100% - 40px); // Убедитесь, что поле width существует в res.data.100%;
 `;
 
 const BalanceText = styled(H4)`
@@ -38,7 +38,7 @@ export default () => {
             setLoading(false);
             if (response && res && isMounted) {
                 setGifts(response.data);
-                setBalance(res.data.balance); // Убедитесь, что поле balance существует в res.data
+                setBalance(res.data); // Убедитесь, что поле balance существует в res.data
             }
         };
         fetchEvents();
@@ -60,34 +60,35 @@ export default () => {
     const props = {
         itemsNumber: 5,
         minColWidth: 250,
-        maxColHeight: 300,
         gapX: 8,
         gapY: 8,
     };
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', padding: '20px', flexDirection: "column" }}>
-            <BalanceContainer>
-                <BalanceText>Ваш баланс: {balance} бонусов</BalanceText>
-            </BalanceContainer>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Card style={cardStyle}>
                     {!loading ? (gifts ? (
-                        <ElasticGrid {...props}>
-                            {gifts.map((gift) => (
-                                <Card style={{ width: '22.5rem' }} background="linear-gradient(135deg, rgba(0,179,179,0.8), rgba(0,255,0,0.8))" tabIndex={0} outlined scaleOnFocus>
-                                    <CardBody>
-                                        <CardMedia src={'https://statmet.1lop.ru/' + gift.image} placeholder={'https://statmet.1lop.ru/' + gift.image} ratio="1/1" />
-                                        <StyledCardBadge style={{ left: '1rem', top: '1rem' }} text={gift.price + ' бонусов'} />
-                                        <CardContent>
-                                            <H4>{gift.title}</H4>
-                                            <BodyM>{gift.description}</BodyM>
-                                            <Button onClick={() => alert('Преобрести')}>Преобрести</Button>
-                                        </CardContent>
-                                    </CardBody>
-                                </Card>
-                            ))}
-                        </ElasticGrid>
+                        <>
+                            <BalanceContainer>
+                                <BalanceText>Ваш баланс: {balance} бонусов</BalanceText>
+                            </BalanceContainer>
+                            <ElasticGrid {...props}>
+                                {gifts.map((gift) => (
+                                    <Card  background="linear-gradient(135deg, rgba(0,179,179,0.8), rgba(0,255,0,0.8))" tabIndex={0} outlined scaleOnFocus>
+                                        <CardBody>
+                                            <CardMedia src={'https://statmet.1lop.ru/' + gift.image} placeholder={'https://statmet.1lop.ru/' + gift.image} ratio="1/1" />
+                                            <StyledCardBadge style={{ left: '1rem', top: '1rem' }} text={gift.price + ' бонусов'} />
+                                            <CardContent>
+                                                <H4>{gift.title}</H4>
+                                                <BodyM>{gift.description}</BodyM>
+                                                <Button onClick={() => console.log('Преобрести')} style={{ marginTop: '20px' }}>Приобрести</Button>
+                                            </CardContent>
+                                        </CardBody>
+                                    </Card>
+                                ))}
+                            </ElasticGrid>
+                        </>
                     ) : (
                         <Headline3>Нет подарков</Headline3>
                     )) : <Spinner size={128} style={{ padding: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} />}

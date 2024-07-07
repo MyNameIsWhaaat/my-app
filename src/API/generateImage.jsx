@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async (promt, count=1) => {
+const generateImage = async (promt, count=1) => {
     const accessToken = localStorage.getItem('accessToken');
     if(!accessToken) return null;
     try {
@@ -16,3 +16,5 @@ export default async (promt, count=1) => {
         else return null;
     }
 }
+
+export default generateImage;

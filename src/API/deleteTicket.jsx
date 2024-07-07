@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async (event) => {
+const deleteTicket = async (event) => {
     const accessToken = localStorage.getItem('accessToken');
     if(!accessToken) return null;
     try {
@@ -16,3 +16,5 @@ export default async (event) => {
         else return null;
     }
 }
+
+export default deleteTicket;
