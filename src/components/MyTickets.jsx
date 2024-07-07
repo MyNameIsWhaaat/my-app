@@ -151,7 +151,6 @@ const MyTickets = () => {
                         }}
                     >
                         <h2>Мои билеты</h2>
-                        {isAdmin && <StyledButton text="Добавить событие" size="s" onClick={addEvent} />}
                     </div>
                 </Card>
 

@@ -6,11 +6,14 @@ import {
     ButtonGroup,
     Card,
     CardContent,
+    addNotification,
 } from '@salutejs/plasma-web';
 import getEvents from '../API/getEvents';
 import styled from 'styled-components';
 import formatDateTime from '../func/formatDateTime.jsx';
 import MoreEventModal from '../components/MoreEventModal.jsx';
+import createTicket from '../API/createTicket';
+import deleteTicket from '../API/deleteTicket';
 
 const StyledButton = styled(Button)`
     background-color: #ffffff;
@@ -27,6 +30,8 @@ const Events = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [editedEvent, setEditedEvent] = useState(null);
+    const [loadingReg, setLoadingReg] = useState(false);
+    const [loadingUnreg, setLoadingUnreg] = useState(false);
     const isAdmin = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).isAdmin : false;
 
     useEffect(() => {
@@ -52,16 +57,34 @@ const Events = () => {
         setValue(newValue);
     };
 
-    const handleRegister = (id) => {
-        setEvents(events.map((event) =>
-            event._id === id ? { ...event, registered: true } : event
-        ));
+    const handleRegister = async (id) => {
+        setLoadingReg(true);
+        const res = await createTicket(id);
+        if(res?.code==200){
+            setLoadingReg(false);
+            setEvents(events.map((event) =>
+                event._id === id ? { ...event, registered: true } : event
+            ));
+        } else addNotification({
+            title: res.message,
+            children: "Код ошибки: " + res.code,
+            showCloseIcon: false
+        }, 2000);
     };
 
-    const handleUnregister = (id) => {
-        setEvents(events.map((event) =>
-            event._id === id ? { ...event, registered: false } : event
-        ));
+    const handleUnregister = async (id) => {
+        setLoadingReg(true);
+        const res = await deleteTicket(id);
+        if(res?.code==200){
+            setLoadingReg(false);
+            setEvents(events.map((event) =>
+                event._id === id ? { ...event, registered: false } : event
+            ));
+        } else addNotification({
+            title: res.message,
+            children: "Код ошибки: " + res.code,
+            showCloseIcon: false
+        }, 2000);
     };
 
     const openModal = (event) => {
@@ -202,10 +225,11 @@ const Events = () => {
                                         {event.registered ? (
                                             <StyledButton
                                                 text="Отказаться"
-                                                onClick={() => handleUnregister(event._id)}
+                                                loading={loadingReg}
+                                                onClick={() => handleUnregister(event.id)}
                                             />
                                         ) : (
-                                            <StyledButton text="Регистрация" onClick={() => handleRegister(event._id)} />
+                                            <StyledButton text="Регистрация" loading={loadingReg} onClick={() => handleRegister(event.id)} />
                                         )}
                                         <StyledButton text="Подробнее" onClick={() => openModal(event)}/>
                                     </ButtonGroup>
