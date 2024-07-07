@@ -28,7 +28,6 @@ const Auth = () => {
         let result = await login(formData);
         if(result?.code==200){
             const {accessToken} = result.data;
-            console.log(accessToken)
             localStorage.setItem('accessToken', accessToken);
             const res = await appInit(accessToken);
             setLoading(false);
@@ -37,6 +36,10 @@ const Auth = () => {
             window.location.href = "/dashboard";
         } else if(result.message && result.code) notification(result);
     }, [formData]);
+    
+    const accessToken = localStorage.getItem('accessToken'), userInfo = localStorage.getItem('userInfo');
+    if(accessToken && userInfo) window.location.href = "/dashboard";
+
     return (
         <div className="auth-container">
             <div className="logo-container" onClick={() => window.location.href = "/"} style={{cursor: "pointer"}}>

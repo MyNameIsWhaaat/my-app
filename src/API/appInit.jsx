@@ -1,39 +1,18 @@
 import axios from 'axios';
 
-const uploadImage = async (accessToken, imageFile) => {
-    if (!accessToken) {
-        console.error('Не указан accessToken');
-        return null;
-    }
-
-    if (!imageFile) {
-        console.error('Не передан файл изображения');
-        return null;
-    }
-
+export default async (event) => {
+    const accessToken = localStorage.getItem('accessToken');
+    if(!accessToken) return null;
     try {
-        // Создаем FormData объект для передачи файла
-        const formData = new FormData();
-        formData.append('image', imageFile);
-
-        // Выполняем POST запрос на сервер для загрузки изображения
-        const response = await axios.post('https://apimet.1lop.ru/uploadImage', formData, {
+        const response = await axios.get(`https://apimet.1lop.ru/appInit`, {
             headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'multipart/form-data'
+                'authorization': `Bearer ${accessToken}`
             }
         });
-
-        console.log('Ответ от сервера:', response.data);
         return response.data;
     } catch (error) {
-        console.error('Ошибка при загрузке изображения:', error);
-        if (error.response && error.response.data) {
-            return error.response.data;
-        } else {
-            return null;
-        }
+        console.error(error);
+        if(error?.response?.data) return error.response.data;
+        else return null;
     }
-};
-
-export default uploadImage;
+}
