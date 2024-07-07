@@ -22,5 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
 .yarn
+=======
+>>>>>>> 7db39adaf2b480e9e0b3fbeda72f2bc4b5f5f914
 .yarn/*

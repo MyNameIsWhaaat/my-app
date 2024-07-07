@@ -23,9 +23,9 @@ const Welcome = () => (
             }}
         >
         <Row>
-            <Row style={{ marginRight:'50px' }}>
-                <Col   style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  flexDirection:'column', width:'100%',}}>
-                    <Headline1 style={{ textAlign:'start', fontSize: '3rem', color: 'white' }}>
+            <Row style={{ marginRight:'250px' }}>
+                <Col   style={{ display: 'flex', justifyContent: 'center', alignItems:'flex-start',  flexDirection:'column', width:'100%',}}>
+                    <Headline1 style={{ textAlign:'start', fontSize: '4rem', color: 'white' }}>
                         СберМотивация
                     </Headline1>
                     <TextBoxBigTitle style={{ textAlign: 'left', fontSize: '2rem', color: 'white' }}>
@@ -38,10 +38,10 @@ const Welcome = () => (
                 
                 <Col  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection:'column' }}>
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection:'column' }}>
-                        <Button view="primary" size="l" style={{  backgroundColor: 'rgba(0, 168, 107, 0.5)', color: 'white', fontSize: '2rem', padding: '30px 150px', marginBottom: '10px' }} onClick={() => window.location.href = "/auth"}>
+                        <Button view="primary" size="l" style={{  backgroundColor: 'rgba(0, 168, 107, 0.5)', color: 'white', fontSize: '2rem', padding: '30px 165px', marginBottom: '10px' }} onClick={() => window.location.href = "/auth"}>
                             Войти
                         </Button>
-                        <Button view="primary" size="l" style={{  backgroundColor: 'rgba(255, 255, 255, 0.9)', color: 'rgba(0, 168, 107, 1)', fontSize: '2rem', padding: '30px 45px' }} onClick={() => window.location.href = "/reg"}>
+                        <Button view="primary" size="l" style={{  backgroundColor: 'rgba(255, 255, 255, 0.9)', color: 'rgb(13, 36, 28)', fontSize: '2rem', padding: '30px 45px' }} onClick={() => window.location.href = "/reg"}>
                             Зарегистрироваться
                         </Button>
                     </div>
