@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const uploadImage = async (accessToken, imageFile) => {
+const uploadImage = async (imageFile) => {
+    const accessToken = localStorage.getItem('accessToken');
     if (!accessToken) {
         console.error('Не указан accessToken');
         return null;
@@ -12,11 +13,9 @@ const uploadImage = async (accessToken, imageFile) => {
     }
 
     try {
-        // Создаем FormData объект для передачи файла
         const formData = new FormData();
         formData.append('image', imageFile);
 
-        // Выполняем POST запрос на сервер для загрузки изображения
         const response = await axios.post('https://apimet.1lop.ru/uploadImage', formData, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,

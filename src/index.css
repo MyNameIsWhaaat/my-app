@@ -2,8 +2,8 @@
   font-family: 'San Francisco Text Semibold';
   src: url('./assets/SFUIText-Semibold.eot');
   src: url('./assets/SFUIText-Semibold.eot?#iefix') format('embedded-opentype'),
-  url('./assets/SFUIText-Semibold.woff') format('woff'),
-  url('./assets/SFUIText-Semibold.ttf') format('truetype');
+       url('./assets/SFUIText-Semibold.woff') format('woff'),
+       url('./assets/SFUIText-Semibold.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,30 +15,47 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.GradientBar {
+  width: 100%;
+  height: 7px;
+  position: relative;
+  overflow: hidden;
+}
+
+.GradientBar-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgb(102, 213, 63) 0%, rgb(253, 253, 84) 100%);
 }
 
 
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+               monospace;
+}
+
 .auth-container {
-  text-align: center; /* Центрирование содержимого */
+  display: flex;
+  flex-direction: column; /* Элементы теперь будут располагаться в колонку */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
 }
 
 .logo-container {
-  margin: 20px; /* Отступ снизу для логотипа */
+  margin-bottom: 20px;
 }
 
 .auth-card {
-  display: inline-block; /* Для центрирования карточки */
-  margin: 0 auto; /* Автоматические отступы справа и слева */
-  padding: 20px; /* Отступы внутри карточки */
-  margin: 20px;
-  margin-left: 50px;
-  margin-right: 50px;
+  padding: 20px;
+  max-width: 600px;
 }
 
 .logo-container img {
-  max-width: 300px; /* Установите максимальную ширину логотипа */
-  height: auto; /* Высота изменится пропорционально, чтобы сохранить соотношение сторон */
+  max-width: 300px;
+  height: auto;
 }
