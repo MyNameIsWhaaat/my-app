@@ -29,7 +29,7 @@ const Welcome = () => (
                         СберМотивация
                     </Headline1>
                     <TextBoxBigTitle style={{ textAlign: 'left', fontSize: '2rem', color: 'white' }}>
-                        Добро пожаловать на платформу Сбер-мотивация!
+                        Добро пожаловать на платформу СберМотивация!
                     </TextBoxBigTitle>
                 </Col>
                  
