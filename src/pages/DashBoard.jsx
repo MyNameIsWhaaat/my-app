@@ -3,6 +3,7 @@ import { Button } from "@salutejs/plasma-web";
 import Header from "../components/Header.jsx";
 import Events from "./Events.jsx";
 import MyTickets from "../components/MyTickets.jsx";
+import Gifts from "./Gifts.jsx";
 
 export default () => {
     const accessToken = localStorage.getItem('accessToken');
@@ -33,6 +34,7 @@ export default () => {
             <Header />
             {tab === 0 && <Events />}
             {tab === 1 && <MyTickets />}
+            {tab === 2 && <Gifts />}
         </div>
     );
 };
