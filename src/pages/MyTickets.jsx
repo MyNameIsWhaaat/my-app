@@ -10,7 +10,7 @@ import {
 import getEvents from '../API/getTickets.jsx';
 import styled from 'styled-components';
 import formatDateTime from '../func/formatDateTime.jsx';
-import MoreEventModal from './MoreEventModal.jsx';
+import MoreEventModal from '../components/MoreEventModal.jsx';
 
 const StyledButton = styled(Button)`
     background-color: #ffffff;

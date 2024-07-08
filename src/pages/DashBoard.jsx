@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@salutejs/plasma-web";
 import Header from "../components/Header.jsx";
 import Events from "./Events.jsx";
-import MyTickets from "../components/MyTickets.jsx";
-import Gifts from "../components/Gifts.jsx";
+import MyTickets from "./MyTickets.jsx";
+import Gifts from "./Gifts.jsx";
 import Footer from "../components/Footer.jsx";
+import Community from "./Community.jsx";
 
 
 export default () => {
