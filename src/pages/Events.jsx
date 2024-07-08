@@ -205,8 +205,8 @@ const Events = () => {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center'}}>
-                {events?.filter((event) => new Date(event.firstDate).toDateString() === value.toDateString())?.length>0 && <Card style={cardStyle2}>
-                    <div
+                <Card style={cardStyle2}>
+                    {isAdmin ? (<div
                         style={{
                             display: 'flex',
                             justifyContent: 'space-between',
@@ -219,9 +219,9 @@ const Events = () => {
                             {value.getFullYear()}
                         </h2>
                         {isAdmin && <StyledButton text="Добавить событие" size="s" onClick={addEvent} />}
-                    </div>
+                    </div>) : null}
                 
-                    {events
+                    {events?.filter((event) => new Date(event.firstDate).toDateString() === value.toDateString())?.length>0 && events
                         .filter((event) => new Date(event.firstDate).toDateString() === value.toDateString())
                         .map((event, i) => (
                             <Card style={cardStyle3}>
@@ -248,7 +248,7 @@ const Events = () => {
                             />
                             </Card>
                         ))}
-                </Card>}
+                </Card>
             </div>
 
             {selectedEvent && (
