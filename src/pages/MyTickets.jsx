@@ -158,19 +158,6 @@ const MyTickets = () => {
                     <Card style={cardStyle} key={i}>
                         <Cell
                             size="l"
-                            contentRight={
-                                <ButtonGroup size="xs" shape="segmented">
-                                    {ticket.event.registered ? (
-                                        <StyledButton
-                                            text="Отказаться"
-                                            onClick={() => handleUnregister(ticket.event._id)}
-                                        />
-                                    ) : (
-                                        <StyledButton text="Регистрация" onClick={() => handleRegister(ticket.event._id)} />
-                                    )}
-                                    <StyledButton text="Подробнее" onClick={() => openModal(ticket.event)} />
-                                </ButtonGroup>
-                            }
                             title={`${ticket.event.title}`}
                             subtitle={`${formatDateTime(ticket.event.firstDate, ticket.event.secondDate)} | ${truncateDescription(ticket.event.description, 45)}`}
                             style={{ marginBottom: '30px' }}
